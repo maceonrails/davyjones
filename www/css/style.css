@@ -1,0 +1,83 @@
+/* Empty. Add your own CSS if you like */
+.bar-dark {
+  background-color: #50170e !important;
+  height: 55px !important;
+}
+
+.bar-dark .title {
+  height: 55px !important;
+  line-height: 55px !important;
+}
+
+.pane > .has-tabs-top {
+  top: 104px;
+}
+
+.tabs-top > .tabs, .tabs.tabs-top {
+  top: 55px !important;
+}
+
+.pane {
+  background-color: #e6e1c4;
+}
+
+.pane.login-view > .scroll-content {
+  background-image: url('../img/drawable-port-xhdpi-screen.png');
+  background-size: cover;
+}
+
+.login-view > .scroll-content > .scroll {
+  padding-top: 330px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.button.button-yellow {
+  color: #333;
+  background-color: #fce700;
+  border-color: #d6c400;
+}
+
+.button.button-yellow.activated {
+  background-color: #d6c400;
+  border-color: #d6c400;
+}
+
+.spinner-text {
+  float: right;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-bottom: 0;
+}
+
+.title.title-left.header-item {
+  left: 30px !important;
+}
+
+.title-custom {
+  font-size: 19px;
+  margin-top: 12px;
+  margin-left: 10px;
+}
+
+.table-grid {
+  text-align: center;
+}
+
+.table-grid > div {
+  padding: 5px;
+}
+
+.table-grid .table-button {
+  background-color: #50170e;
+  color: #FFF;
+  width: 90%;
+  border-color: transparent;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 60px;
+}
+
+.table-grid > .col:active > .table-button, .table-grid .table-button:active {
+  background-color: #300e08;
+}

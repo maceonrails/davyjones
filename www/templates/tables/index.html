@@ -1,0 +1,11 @@
+<ion-view view-title="Tables">
+  <ion-content class="padding">
+    <div class="row table-grid" ng-repeat="chunk in $root.tables">
+      <div class="col" ng-repeat="table in chunk">
+        <button class="table-button" ng-click="onTableClick(table.id)">{{table.name}}</button>
+      </div>
+      <div ng-init="extra = 4 - chunk.length"></div>
+      <div ng-repeat="ex in $root.range(1, extra)" class="col"></div>
+    </div>
+  </ion-content>
+</ion-view>

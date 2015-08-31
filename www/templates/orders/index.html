@@ -1,0 +1,27 @@
+<ion-header-bar align-title="left" class="bar-stable bar-header bar-dark top" ng-init="initial()">
+  <div class="buttons buttons-left header-item">
+    <span class="left-buttons">
+      <button class="button button-icon button-clear ion-android-arrow-back" ng-click="backPressed()">
+      </button>
+      <div class="title-box">
+        <p class="title-withsub">Table {{order.table.name}}</p>
+        <p class="subtitle-custom">Customer's name: {{order.name}}</p>
+      </div>
+    </span>
+  </div>
+
+  <div class="buttons buttons-right header-item custom">
+    <span class="right-buttons">
+      <button class="button button-icon button-clear ion-ios-printer-outline">
+      </button>
+    </span>
+
+    <span class="right-buttons">
+      <button class="button button-icon button-clear ion-android-add">
+      </button>
+    </span>
+  </div>
+</ion-header-bar>
+<ion-content class="custom-content">
+  Some content!
+</ion-content>

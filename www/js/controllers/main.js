@@ -3,6 +3,7 @@ App
   $rootScope.serverIP = $localstorage.get('ip') || null;
   $rootScope.state    = $state;
   $rootScope.token    = $localstorage.get('token') || null;
+  $rootScope.order    = {};
 
   $rootScope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();

@@ -157,34 +157,40 @@ var App = angular.module('starter', [
     controller: 'tableViewCtrl'
   })
 
-  .state('app.restrict.tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('app.restrict.tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
+  .state('app.restrict.orders', {
+    url: '/orders',
+    templateUrl: 'templates/orders/index.html',
+    controller: 'ordersCtrl'
+  })
 
-  .state('app.tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  });
+  // .state('app.restrict.tab.chats', {
+  //     url: '/chats',
+  //     views: {
+  //       'tab-chats': {
+  //         templateUrl: 'templates/tab-chats.html',
+  //         controller: 'ChatsCtrl'
+  //       }
+  //     }
+  //   })
+  //   .state('app.restrict.tab.chat-detail', {
+  //     url: '/chats/:chatId',
+  //     views: {
+  //       'tab-chats': {
+  //         templateUrl: 'templates/chat-detail.html',
+  //         controller: 'ChatDetailCtrl'
+  //       }
+  //     }
+  //   })
+
+  // .state('app.tab.account', {
+  //   url: '/account',
+  //   views: {
+  //     'tab-account': {
+  //       templateUrl: 'templates/tab-account.html',
+  //       controller: 'AccountCtrl'
+  //     }
+  //   }
+  // });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/session/login');

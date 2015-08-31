@@ -81,3 +81,36 @@
 .table-grid > .col:active > .table-button, .table-grid .table-button:active {
   background-color: #300e08;
 }
+
+.popup-form {
+  padding: 10px !important;
+}
+
+.title-box {
+  margin-left: 10px;
+}
+
+.title-box > .title-withsub {
+  font-size: 19px;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.title-box > .subtitle-custom {
+  margin-top: -4px;
+}
+
+.custom-content {
+  top: 55px !important;
+}
+
+.bar-dark.top {
+  top: 0;
+  position: fixed;
+}
+
+.buttons-right.custom {
+  position: absolute;
+  right: 10px;
+  margin-top: 5px;
+}

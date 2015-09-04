@@ -40,9 +40,10 @@ App
 .controller('tableViewCtrl', function($scope, $rootScope, $ionicPopup, $state, lodash, $ionicLoading) {
 
   var getOutlet = function(){
-    $ionicLoading.show({
-      template: '<ion-spinner></ion-spinner> <span class="spinner-text">Checking order...</span>'
-    });
+    $state.go('app.restrict.orders');
+    // $ionicLoading.show({
+    //   template: '<ion-spinner></ion-spinner> <span class="spinner-text">Checking order...</span>'
+    // });
   };
 
   var showCustomerForm = function(){
@@ -51,7 +52,7 @@ App
       title: 'Enter customer\'s name',
       scope: $scope,
       buttons: [
-        { text: 'Cancel'},
+        { text: 'Cancel', onTap: function(e) { return false; } },
         {
           text: '<b>Continue</b>',
           type: 'button-yellow',
@@ -67,9 +68,10 @@ App
       ]
     });
 
-    customerForm.then(function() {
+    customerForm.then(function(res) {
       // $state.go('app.restrict.orders');
-      getOutlet();
+      if (res)
+        getOutlet();
     });
   };
 
@@ -78,6 +80,9 @@ App
     $rootScope.order.table_id   = id;
     $rootScope.order.table      = lodash.findWhere($rootScope.tableList, {id: id});
     $rootScope.order.servant_id = $rootScope.currentUser.id;
-    showCustomerForm();
+    if ($rootScope.order.table.order_id)
+      $state.go('app.restrict.orders');
+    else
+      showCustomerForm();
   };
 })

@@ -114,3 +114,9 @@
   right: 10px;
   margin-top: 5px;
 }
+
+.table-button.available {
+  background: #dabeb9;
+  color: #300e08;
+  border: 1px solid #300e08;
+}

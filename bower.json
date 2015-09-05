@@ -5,7 +5,9 @@
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
   "dependencies": {
-    "restangular": "~1.5.1",
-    "ng-lodash": "~0.2.3"
+    "ionic-image-lazy-load": "ion-image-lazy-load#*",
+    "mnTouch": "https://github.com/ilmente/mnTouch.git",
+    "ng-lodash": "~0.2.3",
+    "restangular": "~1.5.1"
   }
 }

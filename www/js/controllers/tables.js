@@ -1,8 +1,13 @@
 App
-.controller('tablesCtrl', function($rootScope, Table, $ionicTabsDelegate, $timeout, lodash, $ionicLoading) {
+.controller('tablesCtrl', function($rootScope, Table, $ionicTabsDelegate, $timeout, lodash, $ionicLoading, $ionicPlatform) {
   $rootScope.locations = null;
   $rootScope.tables    = null;
   $rootScope.order     = {};
+
+  $ionicPlatform.registerBackButtonAction(function (event) {
+    event.preventDefault(); // EDIT
+    navigator.app.exitApp();
+  }, 100);
 
   $rootScope.reload = function(){
     $ionicTabsDelegate.select(0);
@@ -31,24 +36,41 @@ App
       template: '<ion-spinner></ion-spinner> <span class="spinner-text">Loading...</span>'
     });
     Table.byLocation(location).then(function(res){
-      $rootScope.tableList = res.tables;
-      $rootScope.tables    = lodash.chunk(res.tables, 4);
+      $rootScope.tableList = lodash.sortBy(res.tables, 'name');
+      $rootScope.tables    = lodash.chunk($rootScope.tableList, 4);
       $ionicLoading.hide();
     });
   };
 })
-.controller('tableViewCtrl', function($scope, $rootScope, $ionicPopup, $state, lodash, $ionicLoading) {
+.controller('tableViewCtrl', function($timeout,$scope, $rootScope, $ionicPopup, $state, lodash, $ionicLoading, Order) {
 
-  var getOutlet = function(){
-    $state.go('app.restrict.orders');
-    // $ionicLoading.show({
-    //   template: '<ion-spinner></ion-spinner> <span class="spinner-text">Checking order...</span>'
-    // });
+  var getOrder = function(id){
+    if (!$rootScope.order)
+      $rootScope.order = {};
+    $rootScope.order.products = [];
+
+    if (id){
+      $ionicLoading.show({
+        template: '<ion-spinner></ion-spinner> <span class="spinner-text">Getting order data...</span>'
+      });
+
+      Order.get(id).then(function(res){
+        $rootScope.order = res.order;
+        $timeout(function(){
+          $ionicLoading.hide();
+          $state.go('app.restrict.orders');
+        }, 10);
+      }, function(){
+        $state.go('app.restrict.orders');
+      })
+    }else{
+      $state.go('app.restrict.orders');
+    }
   };
 
   var showCustomerForm = function(){
     var customerForm =  $ionicPopup.show({
-      template: '<input type="text" ng-model="$root.$root.order.name" class="popup-form">',
+      template: '<input type="text" ng-model="$root.order.name" class="popup-form">',
       title: 'Enter customer\'s name',
       scope: $scope,
       buttons: [
@@ -69,9 +91,8 @@ App
     });
 
     customerForm.then(function(res) {
-      // $state.go('app.restrict.orders');
       if (res)
-        getOutlet();
+        getOrder(null);
     });
   };
 
@@ -81,7 +102,7 @@ App
     $rootScope.order.table      = lodash.findWhere($rootScope.tableList, {id: id});
     $rootScope.order.servant_id = $rootScope.currentUser.id;
     if ($rootScope.order.table.order_id)
-      $state.go('app.restrict.orders');
+      getOrder($rootScope.order.table.order_id);
     else
       showCustomerForm();
   };

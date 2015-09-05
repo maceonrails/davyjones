@@ -1,5 +1,6 @@
 App
-.controller('mainCtrl', function($rootScope, $state, $localstorage, $ionicSideMenuDelegate, $state, $timeout) {
+.controller('mainCtrl', function($animate, $rootScope, $state, $localstorage, $ionicSideMenuDelegate, $state, $timeout) {
+  $animate.enabled(false);
   $rootScope.serverIP = $localstorage.get('ip') || null;
   $rootScope.state    = $state;
   $rootScope.token    = $localstorage.get('token') || null;
@@ -18,7 +19,7 @@ App
     }, 200);
   }
 })
-.controller('restrictCtrl', function($rootScope, User, $timeout) {
+.controller('restrictCtrl', function($rootScope, User, $timeout, $state) {
   $rootScope.currentUser = null;
 
   $rootScope.getUser = function(){

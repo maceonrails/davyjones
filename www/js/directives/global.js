@@ -5,7 +5,7 @@ App.directive('tableButton', function(){
     link: function(scope, elem) {
       var resize = function(){
         var el = angular.element(elem);
-        elem.css({height: '60px'});
+        elem.css({height: '63px'});
       }
       resize();
     }

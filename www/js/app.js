@@ -7,10 +7,10 @@
 // 'starter.controllers' is found in controllers.js
 var App = angular.module('starter', [
   'ionic',
-  'starter.controllers',
-  'starter.services',
   'restangular',
-  'ngLodash'])
+  'ngLodash',
+  'ionicLazyLoad',
+  'mn'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -159,9 +159,28 @@ var App = angular.module('starter', [
 
   .state('app.restrict.orders', {
     url: '/orders',
+    cache: false,
     templateUrl: 'templates/orders/index.html',
     controller: 'ordersCtrl'
   })
+
+  // setup an abstract state for the tabs directive
+    .state('app.restrict.products', {
+      url: '/products',
+      cache: false,
+      abstract: true,
+      templateUrl: 'templates/products/products.html',
+      controller: 'productsCtrl'
+    })
+
+    // Each tab has its own nav history stack:
+
+    .state('app.restrict.products.index', {
+      url: '/index',
+      cache: false,
+      templateUrl: 'templates/products/index.html',
+      controller: 'productViewCtrl'
+    })
 
   // .state('app.restrict.tab.chats', {
   //     url: '/chats',

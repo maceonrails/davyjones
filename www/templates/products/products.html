@@ -1,0 +1,31 @@
+<ion-nav-bar class="bar-stable bar-header bar-dark">
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-android-arrow-back" ng-click="$root.goBack()">
+    </button>
+    <p class="title-custom">Products</p>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right" class="no-animate">
+    <button class="button button-clear" ng-if="!$root.takeAway" ng-click="$root.toggleTakeAway();" style="margin-right: 10px; margin-top:2px">
+         Dine In
+    </button>
+
+    <button class="button button-clear" ng-if="$root.takeAway" ng-click="$root.toggleTakeAway();" style="margin-right: 10px; margin-top:2px">
+         Take away
+    </button>
+  </ion-nav-buttons>
+</ion-nav-bar>
+
+
+<!-- render view -->
+
+<ion-tabs class="tabs-color-active-positive" ng-init="$root.init()" view-title="Tables">
+
+  <!-- Dashboard Tab -->
+  <ion-tab title="{{category.name}}" ng-click="selectTabWithIndex($index, category.name)" ng-repeat="category in categories">
+    <ui-view></ui-view>
+  </ion-tab>
+</ion-tabs>

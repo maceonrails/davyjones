@@ -1,8 +1,11 @@
 App.factory('Order', function (Restangular) {
     return {
-      get: function(order) {
-        return Restangular.all('sessions')
-          .customPOST({'user': user}, null, {}, {});
+      get: function(id) {
+        return Restangular.all('orders').one(id, 'get').get();
+      },
+      create: function(order){
+        return Restangular.one('orders', 'from_servant')
+          .customPOST({'order': order}, null, {}, {});
       }
     };
   });

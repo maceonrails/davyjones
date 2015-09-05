@@ -12,16 +12,29 @@
 
   <div class="buttons buttons-right header-item custom">
     <span class="right-buttons">
-      <button class="button button-icon button-clear ion-ios-printer-outline">
+      <button class="button button-icon button-clear ion-android-done" ng-click="$root.saveOrder()">
       </button>
     </span>
 
     <span class="right-buttons">
-      <button class="button button-icon button-clear ion-android-add">
+      <button class="button button-icon button-clear ion-android-add" ui-sref="app.restrict.products.index">
       </button>
     </span>
   </div>
 </ion-header-bar>
 <ion-content class="custom-content">
-  Some content!
+  <div class="list card" ng-if="$root.order.products" ng-repeat="(type, products) in productView">
+    <div class="item item-divider dark-header">
+      {{type}}
+    </div>
+
+    <a href="#" class="item item-icon-right" ng-repeat="product in products" ng-if="!product.void">
+      <i class="icon ion-android-more-horizontal" ng-click="actionMenu(product)"></i>
+      <b>{{product.quantity}}</b> {{product.name}}
+      <p class="order-notes" ng-if="product.choice || product.note">
+        <span ng-if="product.choice">{{product.choice}}</span>
+        <span ng-repeat="note in product.note">{{note}}</span>
+      </p>
+    </a>
+  </div>
 </ion-content>

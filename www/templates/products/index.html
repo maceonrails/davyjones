@@ -1,0 +1,30 @@
+<ion-view view-title="Products">
+  <ion-content class="" lazy-scroll>
+    <div ng-repeat="(subCategory, products) in $root.products">
+      <div class="product-sub-category">{{subCategory}}</div>
+      <div ng-repeat="prd in products">
+        <div class="row paddingless" ng-if="$even">
+          <div class="col col-50 product-item" mn-touch secure-tap="amountForm(products[$index])" hold="showDescription(products[$index])">
+            <img image-lazy-src="{{products[$index].picture}}" width="100%" style="min-height: 165px; background: #50170e">
+            <p>{{products[$index].name}}</p>
+            <div class="product-amount">
+              <h1>{{products[$index].quantity}}</h1>
+              <p><span ng-if="products[$index].choice">{{products[$index].choice}}</span><span ng-repeat="note in products[$index].note">{{note}}</span></p>
+            </div>
+            <div class="product-soldout" ng-if="products[$index].sold_out"></div>
+          </div>
+
+          <div class="col col-50 product-item" ng-if="products[$index+1]" mn-touch secure-tap="amountForm(products[$index+1])" hold="showDescription(products[$index+1])">
+            <img image-lazy-src="{{products[$index+1].picture}}" width="100%" style="height: 165px; background: #50170e">
+            <p>{{products[$index+1].name}}</p>
+            <div class="product-soldout" ng-if="products[$index+1].sold_out"></div>
+            <div class="product-amount">
+              <h1>{{products[$index+1].quantity}}</h1>
+              <p><span ng-if="products[$index+1].choice">{{products[$index+1].choice}}</span><span ng-repeat="note in products[$index+1].note">{{note}}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

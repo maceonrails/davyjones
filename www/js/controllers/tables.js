@@ -42,7 +42,7 @@ App
     });
   };
 })
-.controller('tableViewCtrl', function($timeout,$scope, $rootScope, $ionicPopup, $state, lodash, $ionicLoading, Order) {
+.controller('tableViewCtrl', function($timeout,$scope, $rootScope, $ionicPopup, $state, lodash, $ionicLoading, Order, $ionicActionSheet, Table) {
 
   var getOrder = function(id){
     if (!$rootScope.order)
@@ -50,22 +50,26 @@ App
     $rootScope.order.products = [];
 
     if (id){
-      $ionicLoading.show({
-        template: '<ion-spinner></ion-spinner> <span class="spinner-text">Getting order data...</span>'
-      });
-
-      Order.get(id).then(function(res){
-        $rootScope.order = res.order;
-        $timeout(function(){
-          $ionicLoading.hide();
-          $state.go('app.restrict.orders');
-        }, 10);
-      }, function(){
-        $state.go('app.restrict.orders');
-      })
+      actionMenu($rootScope.order.table);
     }else{
       $state.go('app.restrict.orders');
     }
+  };
+
+  var existingOrder = function(id){
+    $ionicLoading.show({
+      template: '<ion-spinner></ion-spinner> <span class="spinner-text">Getting order data...</span>'
+    });
+
+    Order.get(id).then(function(res){
+      $rootScope.order = res.order;
+      $timeout(function(){
+        $ionicLoading.hide();
+        $state.go('app.restrict.orders');
+      }, 10);
+    }, function(){
+      $state.go('app.restrict.orders');
+    })
   };
 
   var showCustomerForm = function(){
@@ -106,4 +110,76 @@ App
     else
       showCustomerForm();
   };
+
+  var tableUtil = function(table, linkTable){
+    var nm = linkTable == true ? 'Link' : 'Move';
+    $rootScope.targetTable = null;
+    var moveTableForm = $ionicPopup.show({
+      templateUrl: 'templates/tables/list.html',
+      title: nm+' table '+table.name +' to:',
+      scope: $scope,
+      buttons: [
+        { text: 'Cancel', onTap: function(e) { return false; } },
+        {
+          text: '<b>Continue</b>',
+          type: 'button-yellow',
+          onTap: function(e) {
+            if (!$rootScope.targetTable) {
+              e.preventDefault();
+            } else {
+              return $rootScope.targetTable;
+            }
+          }
+        }
+      ]
+    });
+
+    moveTableForm.then(function(res) {
+      if (res){
+        $ionicLoading.show({
+          template: '<ion-spinner></ion-spinner> <span class="spinner-text">'+nm+'ing table...</span>'
+        });
+
+        if (linkTable){
+          Table.link({from: table.id, to: res}).then(function(){
+            $ionicLoading.hide();
+            $rootScope.reload();
+          });
+        }else {
+          Table.move({from: table.id, to: res}).then(function(){
+            $ionicLoading.hide();
+            $rootScope.reload();
+          });
+        }
+      }
+    });
+  };
+
+  var _actionMenu = function(table, index){
+    switch(index) {
+      case 1:
+        tableUtil(table, false);
+        break;
+      case 2:
+        tableUtil(table, true);
+        break;
+      default:
+        existingOrder(table.order_id);
+    }
+  };
+
+  var actionMenu = function(table){
+    $ionicActionSheet.show({
+       buttons: [
+         { text: 'View Order' },
+         { text: 'Move Table' },
+         { text: 'Link Table' }
+       ],
+       buttonClicked: function(index) {
+        _actionMenu(table, index);
+        return true;
+       }
+     });
+  };
+
 })

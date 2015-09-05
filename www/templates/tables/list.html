@@ -1,0 +1,5 @@
+<div class="">
+  <div class="list">
+      <ion-radio ng-model="$root.targetTable" ng-value="'{{table.id}}'" ng-repeat="table in $root.tableList" ng-if="!table.order_id">{{table.name}}</ion-radio>
+  </div>
+</div>

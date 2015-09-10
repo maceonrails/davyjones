@@ -1,6 +1,6 @@
 App
 .controller('loginCtrl',
-  function($rootScope, $scope, $ionicLoading, $ionicPopup, $localstorage, Restangular, User, $timeout, $state) {
+  function($rootScope, $scope, $ionicLoading, $ionicPopup, $localstorage, Restangular, User, $timeout, $state, $window) {
     $scope.user = {};
 
     // redirect if logged in
@@ -39,8 +39,16 @@ App
             $ionicLoading.hide();
           }
         }, function(error){
-          errorLogin(error.data.message),
+          var message = '';
+          if (!error.data){
+            message ="Please try again later";
+            $window.location.reload(true);
+          }else {
+            message = error.data.message;
+          }
+          errorLogin(message),
           $ionicLoading.hide();
+
         });
     };
 

@@ -209,7 +209,7 @@ App
 
     Order.create($rootScope.order).then(function(){
       $ionicLoading.hide();
-      $state.go('app.restrict.tables.index');
+      $state.go('app.restrict.tables.index', {reload: true});
     }, function(){
       $ionicPopup.alert({
         title: 'Unable save order',

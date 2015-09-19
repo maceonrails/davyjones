@@ -74,8 +74,8 @@ App
 
   var showCustomerForm = function(){
     var customerForm =  $ionicPopup.show({
-      template: '<input type="text" ng-model="$root.order.name" class="popup-form">',
-      title: 'Enter customer\'s name',
+      template: '<input type="number" ng-model="$root.order.person" placeholder="pax" class="popup-form"><input type="text" placeholder="name" ng-model="$root.order.name" class="popup-form">',
+      title: 'Enter customer\'s details',
       scope: $scope,
       buttons: [
         { text: 'Cancel', onTap: function(e) { return false; } },
@@ -83,11 +83,11 @@ App
           text: '<b>Continue</b>',
           type: 'button-yellow',
           onTap: function(e) {
-            if (!$rootScope.order.name) {
+            if (!$rootScope.order.person) {
               //don't allow the user to close unless he enters data
               e.preventDefault();
             } else {
-              return $rootScope.order.name;
+              return $rootScope.order.person;
             }
           }
         }

@@ -39,7 +39,7 @@ var App = angular.module('starter', [
   $rootScope.$on('$stateChangeError', function(){ $ionicLoading.hide(); });
 })
 
-.service('APIInterceptor', function($rootScope, $q, $injector) {
+.service('APIInterceptor', function($rootScope, $q, $injector, $location) {
   var service = this;
 
   service.request = function(config) {
@@ -62,6 +62,9 @@ var App = angular.module('starter', [
       window.localStorage['token'] = null;
       // $injector.get('$state').transitionTo('welcome');
       return $q.reject(rejection);// return to login page
+    } else if (rejection.status > 405) {
+      $location.path( "/session/login" );
+      return $q.reject(rejection);
     }else {
       return $q.reject(rejection);
     }
@@ -145,6 +148,7 @@ var App = angular.module('starter', [
   .state('app.restrict.tables', {
     url: '/tables',
     abstract: true,
+    cache: false,
     templateUrl: 'templates/tables/tables.html',
     controller: 'tablesCtrl'
   })
@@ -153,6 +157,7 @@ var App = angular.module('starter', [
 
   .state('app.restrict.tables.index', {
     url: '/index',
+    cache: false,
     templateUrl: 'templates/tables/index.html',
     controller: 'tableViewCtrl'
   })

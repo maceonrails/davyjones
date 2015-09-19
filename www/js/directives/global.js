@@ -10,4 +10,9 @@ App.directive('tableButton', function(){
       resize();
     }
   };
+})
+.filter('removeand', function() {
+  return function(input) {
+    return input.replace(' AND ', '&');
+  };
 });

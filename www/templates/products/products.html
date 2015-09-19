@@ -25,7 +25,7 @@
 <ion-tabs class="tabs-color-active-positive" ng-init="$root.init()" view-title="Tables">
 
   <!-- Dashboard Tab -->
-  <ion-tab title="{{category.name}}" ng-click="selectTabWithIndex($index, category.name)" ng-repeat="category in categories">
+  <ion-tab title="{{category.name | removeand }}" ng-click="selectTabWithIndex($index, category.name)" ng-repeat="category in categories">
     <ui-view></ui-view>
   </ion-tab>
 </ion-tabs>

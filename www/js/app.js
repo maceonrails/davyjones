@@ -62,7 +62,7 @@ var App = angular.module('starter', [
       window.localStorage['token'] = null;
       // $injector.get('$state').transitionTo('welcome');
       return $q.reject(rejection);// return to login page
-    } else if (rejection.status > 405) {
+    } else if (rejection.status >= 500) {
       $location.path( "/session/login" );
       return $q.reject(rejection);
     }else {
@@ -101,7 +101,7 @@ var App = angular.module('starter', [
   var domain = window.location.hostname;
       domain = domain === 'localhost' ? '' : domain;
 
-  var ip = window.localStorage['ip'];
+  var ip = window.localStorage['ip'] || '192.168.1.251';
 
   RestangularProvider
     .setBaseUrl('http://'+ip+'/v1');

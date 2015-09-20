@@ -57,9 +57,10 @@ App
       $ionicLoading.show({
         template: '<ion-spinner></ion-spinner> <span class="spinner-text">Checking connection...</span>'
       });
-
       Restangular.oneUrl('checkConnection', 'http://'+$rootScope.serverIP+'/v1').get()
-        .then(function(){}, function(err){
+        .then(function(){
+          $ionicLoading.hide();
+        }, function(err){
           if (!err.data)
             showServerIPForm();
           else {
@@ -94,6 +95,7 @@ App
 
       serverIPForm.then(function(res) {
         $localstorage.set('ip', res);
+        $rootScope.serverIP = res;
         checkConnection();
       });
     };

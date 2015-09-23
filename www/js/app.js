@@ -62,9 +62,10 @@ var App = angular.module('starter', [
       window.localStorage['token'] = null;
       // $injector.get('$state').transitionTo('welcome');
       return $q.reject(rejection);// return to login page
-    } else if (rejection.status >= 500) {
-      $location.path( "/session/login" );
-      return $q.reject(rejection);
+    // } 
+    // else if (rejection.status >= 500) {
+    //   $location.path( "/session/login" );
+    //   return $q.reject(rejection);
     }else {
       return $q.reject(rejection);
     }
